@@ -17,7 +17,7 @@ import com.jsontotable.service.JsonService;
 @RestController
 public class controller {
 	
-	private String htmlPage = "<html> <head> </head> <body> <h1>worked</h1> </body> </html>";
+//	private String htmlPage = "<html> <head> </head> <body> <h1>worked</h1> </body> </html>";
 	
 	@Autowired
 	private JsonService jsonService;
@@ -28,8 +28,8 @@ public class controller {
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.TEXT_HTML_VALUE)
 	public String getJson(@RequestBody Map<String, Object> input){
-		//HealthReport newReport = jsonService.getHealthReport(input);
-		return htmlPage;
+		HealthReport newReport = jsonService.getHealthReport(input);
+		return jsonService.getHtmlPage(newReport);
 		
 //		return new ResponseEntity<HealthReport>(htmlPage, HttpStatus.OK);
 	}

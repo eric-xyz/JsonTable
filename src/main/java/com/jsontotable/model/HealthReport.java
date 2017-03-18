@@ -3,21 +3,21 @@ package com.jsontotable.model;
 import java.util.List;
 
 public class HealthReport {
-	private String overallServiceHealth;
-	private String reason;
+	private String overallHealth;
+	private String serviceName;
 	private List<Dependency> dependencies;
 	
-	public String getOverallServiceHealth() {
-		return overallServiceHealth;
+	public String getOverallHealth() {
+		return overallHealth;
 	}
-	public void setOverallServiceHealth(String overallServiceHealth) {
-		this.overallServiceHealth = overallServiceHealth;
+	public void setOverallHealth(String overallHealth) {
+		this.overallHealth = overallHealth;
 	}
-	public String getReason() {
-		return reason;
+	public String getServiceName() {
+		return serviceName;
 	}
-	public void setReason(String reason) {
-		this.reason = reason;
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
 	}
 	public List<Dependency> getDependencies() {
 		return dependencies;
@@ -26,5 +26,10 @@ public class HealthReport {
 		this.dependencies = dependencies;
 	}
 	
+	@Override 
+	public String toString(){
+		return "Service Name" + serviceName + " : " + "overallHealth" + " : " + overallHealth; 
+				
+	}
 	
 }

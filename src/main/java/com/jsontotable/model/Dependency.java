@@ -40,6 +40,6 @@ public class Dependency {
 	}
 	@Override 
 	public String toString(){
-		return serviceName + " : " + status + ", " + latency + ", " + details;
+		return serviceName + " : " + status + ", " + latency + ", " + details + ", " + url;
 	}
 }

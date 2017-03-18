@@ -12,57 +12,81 @@ import com.jsontotable.model.HealthReport;
 
 @Service
 public class JsonService {
-	private static final String overallHealth = "overallHealth";
-	private static final String serviceName = "serviceName";
-	private static final String dependencies = "dependencies";
-	private static final String serviceHealth = "healthy";
-	private static final String serviceUrl = "endpoint";
-	private static final String serviceLatency = "latency";
-	private static final String serviceDetails = "reason";
+	private static final String _overallHealth = "overallHealth";
+	private static final String _serviceName = "serviceName";
+	private static final String _dependencies = "dependencies";
+	private static final String _depServiceName = "serviceName";
+	private static final String _serviceHealth = "healthy";
+	private static final String _serviceUrl = "endpoint";
+	private static final String _serviceLatency = "latency";
+	private static final String _serviceDetails = "details";
 	
 	public HealthReport getHealthReport(Map<String, Object> input){
 		HealthReport report = new HealthReport();
-		String serviceHealth = (String)input.get(overallHealth);
+		String serviceHealth = (String)input.get(_overallHealth);
 		if(null != serviceHealth && !serviceHealth.isEmpty()){
-			report.setOverallServiceHealth(serviceHealth);
+			report.setOverallHealth(serviceHealth);
 		}
-		String failedReason = (String)input.get(serviceName);
-		if(null != failedReason && !failedReason.isEmpty()){
-			report.setReason(failedReason);
+		String serviceName = (String)input.get(_serviceName);
+		if(null != serviceName && !serviceName.isEmpty()){
+			report.setServiceName(serviceName);
 		}
-		System.out.println(((ArrayList)input.get(dependencies)).get(0).getClass().getName());
 		
 		@SuppressWarnings("unchecked")
-		ArrayList<LinkedHashMap<String, LinkedHashMap<String,String>>> ls = 
-				(ArrayList<LinkedHashMap<String, LinkedHashMap<String,String>>>)input.get(dependencies);
+		ArrayList<LinkedHashMap<String, Object>> ls = 
+				(ArrayList<LinkedHashMap<String, Object>>)input.get(_dependencies);
 		
 		List<Dependency> depList = getDependencyList(ls);
 		report.setDependencies(depList);
 		return report;
 	}
 
-	private List<Dependency> getDependencyList(List<LinkedHashMap<String, LinkedHashMap<String, String>>> ls) {
+	private List<Dependency> getDependencyList(List<LinkedHashMap<String, Object>> ls) {
 		List<Dependency> res = new ArrayList<>();
 		if(ls == null || ls.size() == 0) return res;
-		LinkedHashMap<String, LinkedHashMap<String, String>> map = ls.get(0);
-		for(String key : map.keySet()){
-			Dependency tempDependency = new Dependency();
-			LinkedHashMap<String, String> contentMap = map.get(key);
-			tempDependency.setServiceName(key);
-			for(String contentKey : contentMap.keySet()){
-				String contentValue = contentMap.get(contentKey);
-				if(contentKey.equals(serviceHealth)){
-					tempDependency.setStatus(contentValue);
-				}else if(contentKey.equals(serviceUrl)){
-					tempDependency.setUrl(contentValue);
-				}else if(contentKey.equals(serviceLatency)){
-					tempDependency.setLatency(contentValue);
-				}else if(contentKey.equals(serviceDetails)){
-					tempDependency.setDetails(contentValue);
+		Dependency tempDependency = new Dependency();
+		for(int i = 0; i < ls.size(); ++i){
+			LinkedHashMap<String, Object> map = ls.get(i);
+			for(Map.Entry<String, Object> entry : map.entrySet()){
+				if(entry.getValue() instanceof String){
+					setField(tempDependency, entry.getKey(), entry.getValue().toString());
+				}else{
+					if(null == entry.getValue()){
+						setField(tempDependency, entry.getKey(), "");
+					}else{
+						setField(tempDependency, entry.getKey(), entry.getValue().toString());
+					}
 				}
 			}
 			res.add(tempDependency);
-		}
+		}	
 		return res;
+	}
+
+	private void setField(Dependency tempDependency, String fieldName, String filedValue) {
+		// TODO Auto-generated method stub
+		switch(fieldName){
+			case _depServiceName:
+				tempDependency.setServiceName(filedValue);
+				break;
+			case _serviceHealth:
+				tempDependency.setStatus(filedValue);
+				break;
+			case _serviceUrl:
+				tempDependency.setUrl(filedValue);
+				break;
+			case _serviceLatency:
+				tempDependency.setLatency(filedValue);
+				break;
+			case _serviceDetails:
+				tempDependency.setDetails(filedValue);
+				break;
+		}
+		
+	}
+
+	public String getHtmlPage(HealthReport newReport) {
+		
+		return null;
 	}
 }
