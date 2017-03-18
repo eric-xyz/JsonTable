@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jsontotable.model.Dependency;
@@ -20,6 +21,9 @@ public class JsonService {
 	private static final String _serviceUrl = "endpoint";
 	private static final String _serviceLatency = "latency";
 	private static final String _serviceDetails = "details";
+	
+	@Autowired
+	HtmlService htmlService;
 	
 	public HealthReport getHealthReport(Map<String, Object> input){
 		HealthReport report = new HealthReport();
@@ -81,12 +85,14 @@ public class JsonService {
 			case _serviceDetails:
 				tempDependency.setDetails(filedValue);
 				break;
-		}
-		
+		}	
 	}
 
 	public String getHtmlPage(HealthReport newReport) {
-		
+		StringBuilder htmlPage = new StringBuilder();
+		htmlPage.append(htmlService.getHeader());
+		htmlPage.append(htmlService.getBody(newReport));
+		htmlPage.append(htmlService.getFooter());
 		return null;
 	}
 }
