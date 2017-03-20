@@ -15,7 +15,7 @@ import com.jsontotable.model.HealthReport;
 import com.jsontotable.service.JsonService;
 
 @RestController
-public class controller {
+public class Controller {
 	
 	@Autowired
 	private JsonService jsonService;

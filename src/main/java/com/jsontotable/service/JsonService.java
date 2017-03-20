@@ -39,7 +39,6 @@ public class JsonService {
 		@SuppressWarnings("unchecked")
 		ArrayList<LinkedHashMap<String, Object>> ls = 
 				(ArrayList<LinkedHashMap<String, Object>>)input.get(_dependencies);
-		
 		List<Dependency> depList = getDependencyList(ls);
 		report.setDependencies(depList);
 		return report;

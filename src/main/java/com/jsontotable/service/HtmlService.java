@@ -38,7 +38,7 @@ public class HtmlService {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<body>");
 		sb.append(getContent(newReport));
-		sb.append("/<body>");
+		sb.append("</body>");
 		return sb.toString();
 	}
 	public String getFooter() {
@@ -47,10 +47,13 @@ public class HtmlService {
 	private String getStyleSheet(){
 		return styleSheet;
 	}
-
+	
 	private String getContent(HealthReport newReport) {
+		if(null == newReport) return "";
 		String serviceName = newReport.getServiceName() == null? "" : newReport.getServiceName();
-		String overAllStatus = newReport.getOverallHealth().equalsIgnoreCase(healthyStatusName)? healthyStatusName : 
+		String overAllStatus = "";
+		if(null != newReport.getOverallHealth())
+			overAllStatus = newReport.getOverallHealth().equalsIgnoreCase(healthyStatusName)? healthyStatusName : 
 																										unhealthyStatusName;
 		boolean isUnhealthySubServive = isUnhealthySubService(newReport.getDependencies());
 		String statusClassName = overAllStatus.equalsIgnoreCase(healthyStatusName) ? healthyClassName : unhealthyClassName;
@@ -87,8 +90,11 @@ public class HtmlService {
 	}
 
 	private boolean isUnhealthySubService(List<Dependency> list) {
+		if(null == list) return false;
 		for(Dependency dependency : list){
-			if(dependency.getStatus().equalsIgnoreCase("Unhealthy")){
+			String status = dependency.getStatus();
+			if(null == status) continue;
+			if(status.equalsIgnoreCase("Unhealthy")){
 				return true;
 			}
 		}
