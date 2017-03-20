@@ -27,8 +27,9 @@ public class controller {
 		produces = MediaType.TEXT_HTML_VALUE)
 	public String getJson(@RequestBody Map<String, Object> input){
 		HealthReport newReport = jsonService.getHealthReport(input);
-		
-		return jsonService.getHtmlPage(newReport);
+		String htmlPage = jsonService.getHtmlPage(newReport);
+		//System.out.println(htmlPage);
+		return htmlPage;
 		
 //		return new ResponseEntity<HealthReport>(htmlPage, HttpStatus.OK);
 	}

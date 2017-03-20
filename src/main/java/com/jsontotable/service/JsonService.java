@@ -48,8 +48,8 @@ public class JsonService {
 	private List<Dependency> getDependencyList(List<LinkedHashMap<String, Object>> ls) {
 		List<Dependency> res = new ArrayList<>();
 		if(ls == null || ls.size() == 0) return res;
-		Dependency tempDependency = new Dependency();
 		for(int i = 0; i < ls.size(); ++i){
+			Dependency tempDependency = new Dependency();
 			LinkedHashMap<String, Object> map = ls.get(i);
 			for(Map.Entry<String, Object> entry : map.entrySet()){
 				if(entry.getValue() instanceof String){
@@ -93,6 +93,6 @@ public class JsonService {
 		htmlPage.append(htmlService.getHeader());
 		htmlPage.append(htmlService.getBody(newReport));
 		htmlPage.append(htmlService.getFooter());
-		return null;
+		return htmlPage.toString();
 	}
 }
