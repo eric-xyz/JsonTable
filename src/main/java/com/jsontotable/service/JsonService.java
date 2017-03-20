@@ -13,14 +13,16 @@ import com.jsontotable.model.HealthReport;
 
 @Service
 public class JsonService {
-	private static final String _overallHealth = "overallHealth";
+	private static final String _overallHealth = "status";
+	private static final String _timeStamp = "timestamp";
+	private static final String _serviceVersion = "serviceVersion";
 	private static final String _serviceName = "serviceName";
 	private static final String _dependencies = "dependencies";
 	private static final String _depServiceName = "serviceName";
 	private static final String _serviceHealth = "healthy";
 	private static final String _serviceUrl = "endpoint";
 	private static final String _serviceLatency = "latency";
-	private static final String _serviceDetails = "details";
+	private static final String _serviceDetails = "reason";
 	
 	@Autowired
 	HtmlService htmlService;
@@ -34,6 +36,14 @@ public class JsonService {
 		String serviceName = (String)input.get(_serviceName);
 		if(null != serviceName && !serviceName.isEmpty()){
 			report.setServiceName(serviceName);
+		}
+		String timeStamp = (String)input.get(_timeStamp);
+		if(null != timeStamp && !timeStamp.isEmpty()){
+			report.setTimeStamp(timeStamp);
+		}
+		String serviceVersion = (String)input.get(_serviceVersion);
+		if(null != serviceVersion && !serviceVersion.isEmpty()){
+			report.setVersionNumber(serviceVersion);
 		}
 		
 		@SuppressWarnings("unchecked")

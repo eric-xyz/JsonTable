@@ -25,6 +25,9 @@ public class HtmlService {
 	private static final String healthyStatusName = "Healthy";
 	private static final String unhealthyStatusName = "Unhealthy";
 	
+	private static final String timeStampName = "TimeStamp";
+	private static final String versionName = "Service Version";
+	
 	
 	public String getHeader() {
 		StringBuilder sb = new StringBuilder();
@@ -60,9 +63,24 @@ public class HtmlService {
 		if(isUnhealthySubServive && statusClassName.equalsIgnoreCase(healthyClassName)){
 			statusClassName = healthyClassNameWithUnhealthySubService;
 		}
+		String timeStamp = newReport.getTimeStamp() == null ? "" : newReport.getTimeStamp();
+		String versionNumber = newReport.getVersionNumber() == null ? "" : newReport.getVersionNumber();
+		
+		//service name && health status
 		StringBuilder sb = new StringBuilder();
 		sb.append("<table><thead><tr><th colspan=\"3\" class=\"headRow\">" + serviceName + "</th>");
 		sb.append("<th colspan=\"2\" class=\"headRow " + statusClassName + "\">" + overAllStatus + "</th></tr>");
+		
+		//version number
+		sb.append("<tr><th colspan=\"2\">" + versionName + "</th><th></th>");
+		sb.append("<th colspan=\"2\">" + versionNumber + "</th></tr>");
+		
+		//timeStamp
+		sb.append("<tr><th colspan=\"2\">" + timeStampName + "</th><th></th>");
+		sb.append("<th colspan=\"2\">" + timeStamp + "</th></tr>");
+		
+		
+		
 		sb.append("<tr><th>Service Name</th><th>Status</th><th>Url</th><th>Latency in ms</th><th>Reason</th></tr></thead>");
 		sb.append("<tbody>");
 		List<Dependency> depList = newReport.getDependencies();

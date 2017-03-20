@@ -5,6 +5,21 @@ import java.util.List;
 public class HealthReport {
 	private String overallHealth;
 	private String serviceName;
+	private String timeStamp;
+	private String versionNumber;
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+	public String getVersionNumber() {
+		return versionNumber;
+	}
+	public void setVersionNumber(String versionNumber) {
+		this.versionNumber = versionNumber;
+	}
+
 	private List<Dependency> dependencies;
 	
 	public String getOverallHealth() {

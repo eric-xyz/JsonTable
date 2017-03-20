@@ -25,7 +25,7 @@ public class Controller {
 		method = RequestMethod.POST,
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.TEXT_HTML_VALUE)
-	public String getJson(@RequestBody Map<String, Object> input){
+	public String getHtml(@RequestBody Map<String, Object> input){
 		HealthReport newReport = jsonService.getHealthReport(input);
 		String htmlPage = jsonService.getHtmlPage(newReport);
 		//System.out.println(htmlPage);
@@ -33,7 +33,6 @@ public class Controller {
 		
 //		return new ResponseEntity<HealthReport>(htmlPage, HttpStatus.OK);
 	}
-	
-	
+
 
 }
