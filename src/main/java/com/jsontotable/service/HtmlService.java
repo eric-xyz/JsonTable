@@ -72,17 +72,17 @@ public class HtmlService {
 		sb.append("<th colspan=\"2\" class=\"headRow " + statusClassName + "\">" + overAllStatus + "</th></tr>");
 		
 		//version number
-		sb.append("<tr><th colspan=\"2\">" + versionName + "</th><th></th>");
-		sb.append("<th colspan=\"2\">" + versionNumber + "</th></tr>");
+		sb.append("<tr><th colspan=\"2\">" + versionName + "</th>");
+		sb.append("<th colspan=\"3\">" + versionNumber + "</th></tr>");
 		
 		//timeStamp
-		sb.append("<tr><th colspan=\"2\">" + timeStampName + "</th><th></th>");
-		sb.append("<th colspan=\"2\">" + timeStamp + "</th></tr>");
+		sb.append("<tr><th colspan=\"2\">" + timeStampName + "</th>");
+		sb.append("<th colspan=\"3\">" + timeStamp + "</th></tr>");
 		
-		
-		
+		//table header
 		sb.append("<tr><th>Service Name</th><th>Status</th><th>Url</th><th>Latency in ms</th><th>Reason</th></tr></thead>");
 		sb.append("<tbody>");
+		
 		List<Dependency> depList = newReport.getDependencies();
 		if(depList != null){
 			for(Dependency dependency : depList){

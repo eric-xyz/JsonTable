@@ -28,10 +28,7 @@ public class Controller {
 	public String getHtml(@RequestBody Map<String, Object> input){
 		HealthReport newReport = jsonService.getHealthReport(input);
 		String htmlPage = jsonService.getHtmlPage(newReport);
-		//System.out.println(htmlPage);
 		return htmlPage;
-		
-//		return new ResponseEntity<HealthReport>(htmlPage, HttpStatus.OK);
 	}
 
 
